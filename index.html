@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0111)file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html -->
-<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sara &amp; Isac – 22 Juli 2027</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="./Sara &amp; Isac – 22 Juli 2027_files/css2" rel="stylesheet">
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara & Isac – 22 Juli 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   
   <style>
     /* =========================================================
@@ -19,9 +19,9 @@
       --text-muted: #5F6663;
       
       /* Era accentfärger */
-      --accent-green: #4A6B5D;      /* Huvudgrön */
-      --accent-green-light: #EBF0ED;/* Ljus grön ton för kort/bakgrunder */
-      --accent-purple: #6D597A;     /* Detaljlila */
+      --accent-green: #4A6B5D;       /* Huvudgrön */
+      --accent-green-light: #EBF0ED; /* Ljus grön ton för kort/bakgrunder */
+      --accent-purple: #6D597A;      /* Detaljlila */
       --accent-purple-light: #F3EFF5;/* Ljus lila ton */
       
       --border-color: #E5E7E6;
@@ -37,6 +37,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 75px; /* Gör att fasta menyn inte täcker rubriken vid hopp */
     }
 
     body {
@@ -46,15 +47,18 @@
       font-weight: 300;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* Navigering */
     nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-color);
       z-index: 1000;
       padding: 1rem 1.5rem;
@@ -94,6 +98,18 @@
 
     .nav-links a:hover {
       color: var(--accent-purple);
+    }
+
+    /* Mobilmeny-knapp (dold på dator) */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      color: var(--accent-green);
+      font-size: 1.5rem;
+      line-height: 1;
     }
 
     /* Hero-sektion */
@@ -464,9 +480,25 @@
       color: var(--text-muted);
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 680px) {
+      .menu-toggle {
+        display: block;
+      }
       .nav-links {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.25rem 1.5rem;
+        gap: 1rem;
+        text-align: center;
+      }
+      .nav-links.open {
+        display: flex;
       }
       .countdown {
         gap: 0.75rem;
@@ -486,31 +518,32 @@
   <!-- Navigering -->
   <nav>
     <div class="nav-container">
-      <a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#" class="nav-logo">S &amp; I</a>
-      <ul class="nav-links">
-        <li><a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#valkommen">Välkommen</a></li>
-        <li><a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#schema">Schema</a></li>
-        <li><a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#info">Praktisk info</a></li>
-        <li><a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#onskelista">Önskelista</a></li>
-        <li><a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#osa">OSA</a></li>
+      <a href="#top" class="nav-logo">S &amp; I</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Öppna meny">&#9776;</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#valkommen">Välkommen</a></li>
+        <li><a href="#schema">Schema</a></li>
+        <li><a href="#info">Praktisk info</a></li>
+        <li><a href="#onskelista">Önskelista</a></li>
+        <li><a href="#osa">OSA</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- Hero -->
-  <header>
+  <header id="top">
     <p class="subtitle">Vi gifter oss</p>
     <h1>Sara <span>&amp;</span> Isac</h1>
-    <p class="date-location">Torsdagen den 22 juli 2027 • Asa Herrgård, Lammhult</p>
+    <p class="date-location">Torsdagen den 22 juli 2027 &bull; Asa Herrgård, Lammhult</p>
 
     <div class="countdown" id="countdown">
-      <div class="countdown-box"><span class="countdown-num" id="days">246</span><span class="countdown-label">Dagar</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="hours">20</span><span class="countdown-label">Timmar</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="minutes">38</span><span class="countdown-label">Minuter</span></div>
-      <div class="countdown-box"><span class="countdown-num" id="seconds">6</span><span class="countdown-label">Sekunder</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="days">0</span><span class="countdown-label">Dagar</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="hours">0</span><span class="countdown-label">Timmar</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="minutes">0</span><span class="countdown-label">Minuter</span></div>
+      <div class="countdown-box"><span class="countdown-num" id="seconds">0</span><span class="countdown-label">Sekunder</span></div>
     </div>
 
-    <a href="file:///private/var/folders/ps/spxr10nd03n4cyr7sp_r7zt80000gn/T/72E62C95-696B-468C-B216-67CEB0B2B4AE/index.html#osa" class="btn-primary">OSA här</a>
+    <a href="#osa" class="btn-primary">OSA här</a>
   </header>
 
   <!-- Välkommen -->
@@ -583,7 +616,14 @@
     </div>
 
     <div class="map-embed">
-      <iframe title="Karta till Asa Herrgård" src="./Sara &amp; Isac – 22 Juli 2027_files/maps.html" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+      <iframe 
+        title="Karta till Asa Herrgård"
+        src="https://www.google.com/maps?q=Asa+Herrg%C3%A5rd,+Lammhult&output=embed" 
+        width="100%" 
+        height="300" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
       </iframe>
     </div>
   </section>
@@ -597,49 +637,9 @@
         <strong>Så fungerar listan:</strong> Det viktigaste för oss är att ni kommer och firar med oss! Om ni ändå vill ge en gåva kan ni bocka av den här nedan så att två gäster inte råkar köpa samma sak. <em>(Brudparet tjuvkikar inte i fliken – så det förblir en överraskning!)</em>
       </div>
 
-      <div class="wishlist-grid" id="wishlist-container"><div class="wish-item ">
-          <div>
-            <h4>Bidrag till bröllopsresan</h4>
-            <p>Ett valfritt bidrag till vår kommande resa.</p>
-          </div>
-          <div class="wish-actions">
-            <span></span>
-            <span style="font-size:0.8rem; color: var(--accent-green);">Flera kan bidra</span>
-          </div>
-        </div><div class="wish-item ">
-          <div>
-            <h4>Gjutjärnsgryta (28 cm)</h4>
-            <p>Gärna i grönt eller svart.</p>
-          </div>
-          <div class="wish-actions">
-            <a href="https://exempel.se/" target="_blank" rel="noopener" class="wish-link">Se exempel</a>
-            <button class="btn-reserve" onclick="reserveGift('gift-2', 'Gjutjärnsgryta (28 cm)', this)">
-                  Jag tar denna
-                 </button>
-          </div>
-        </div><div class="wish-item ">
-          <div>
-            <h4>Kaffekvarn</h4>
-            <p>En bra kvarn för morgonkaffet.</p>
-          </div>
-          <div class="wish-actions">
-            <span></span>
-            <button class="btn-reserve" onclick="reserveGift('gift-3', 'Kaffekvarn', this)">
-                  Jag tar denna
-                 </button>
-          </div>
-        </div><div class="wish-item ">
-          <div>
-            <h4>Vinglas (6-pack)</h4>
-            <p>Tidlösa kristallglas.</p>
-          </div>
-          <div class="wish-actions">
-            <span></span>
-            <button class="btn-reserve" onclick="reserveGift('gift-4', 'Vinglas (6-pack)', this)">
-                  Jag tar denna
-                 </button>
-          </div>
-        </div></div>
+      <div class="wishlist-grid" id="wishlist-container">
+        <!-- Fylls i automatiskt via JavaScript nedan -->
+      </div>
     </section>
   </div>
 
@@ -654,17 +654,17 @@
     <form id="rsvp-form">
       <div class="form-group">
         <label for="name">Namn på gäst(er) *</label>
-        <input type="text" id="name" name="name" placeholder="För- och efternamn" required="">
+        <input type="text" id="name" name="name" placeholder="För- och efternamn" required />
       </div>
 
       <div class="form-group">
         <label for="email">E-postadress *</label>
-        <input type="email" id="email" name="email" placeholder="namn@exempel.se" required="">
+        <input type="email" id="email" name="email" placeholder="namn@exempel.se" required />
       </div>
 
       <div class="form-group">
         <label for="attending">Kommer ni? *</label>
-        <select id="attending" name="attending" required="">
+        <select id="attending" name="attending" required>
           <option value="Ja, vi kommer gärna!">Ja, vi kommer gärna!</option>
           <option value="Tyvärr kan vi inte komma">Tyvärr kan vi inte komma</option>
         </select>
@@ -672,12 +672,12 @@
 
       <div class="form-group">
         <label for="diet">Allergier eller specialkost</label>
-        <input type="text" id="diet" name="diet" placeholder="T.ex. gluten, vegetarian, nötter...">
+        <input type="text" id="diet" name="diet" placeholder="T.ex. gluten, vegetarian, nötter..." />
       </div>
 
       <div class="form-group">
         <label for="song">Önskelåt till dansgolvet</label>
-        <input type="text" id="song" name="song" placeholder="Artist – Låttitel">
+        <input type="text" id="song" name="song" placeholder="Artist – Låttitel" />
       </div>
 
       <div class="form-group">
@@ -691,10 +691,34 @@
   </section>
 
   <footer>
-    Sara Bernhardsson &amp; Isac • 22 Juli 2027 • Asa Herrgård
+    Sara Bernhardsson &amp; Isac &bull; 22 Juli 2027 &bull; Asa Herrgård
   </footer>
 
   <script>
+    // =========================================================
+    // 0. MOBILMENY & MJUK SCROLL
+    // =========================================================
+    const menuToggle = document.getElementById("menu-toggle");
+    const navLinks = document.getElementById("nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        const targetId = this.getAttribute("href");
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          navLinks.classList.remove("open");
+          const navHeight = document.querySelector("nav").offsetHeight;
+          const targetPos = targetEl.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top: targetPos, behavior: "smooth" });
+        }
+      });
+    });
+
     // =========================================================
     // 1. KOPPLING TILL ERT GEMENSAMMA GOOGLE KALKYLARK
     // Klistra in webbapp-URL:en från ert Google Apps Script här:
@@ -858,5 +882,5 @@
       }
     });
   </script>
-
-</body></html>
+</body>
+</html>
