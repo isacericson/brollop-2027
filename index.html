@@ -10,21 +10,24 @@
   
   <style>
     /* =========================================================
-       FÄRGPALETT & INSTÄLLNINGAR (Byt ut era hex-koder här!)
+       ER FÄRGPALETT
        ========================================================= */
     :root {
       --bg-primary: #FFFFFF;
-      --bg-secondary: #FAF9F7;
-      --text-main: #232625;
-      --text-muted: #5F6663;
+      --bg-secondary: #FAF9F8;
+      --text-main: #232624;
+      --text-muted: #5C615E;
       
-      /* Era accentfärger */
-      --accent-green: #4A6B5D;       /* Huvudgrön */
-      --accent-green-light: #EBF0ED; /* Ljus grön ton för kort/bakgrunder */
-      --accent-purple: #6D597A;      /* Detaljlila */
-      --accent-purple-light: #F3EFF5;/* Ljus lila ton */
+      /* Era valda huvudfärger */
+      --accent-green: #80877B;
+      --accent-green-dark: #5C6358;   /* För läsbar text & knappar */
+      --accent-green-light: #F2F3F1;  /* Mjuk bakgrundston */
       
-      --border-color: #E5E7E6;
+      --accent-purple: #DDA0DD;
+      --accent-purple-dark: #9B5D9B;  /* För läsbar text & länkar */
+      --accent-purple-light: #FBF2FB; /* Mjuk bakgrundston */
+      
+      --border-color: #E5E7E5;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -37,7 +40,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 75px; /* Gör att fasta menyn inte täcker rubriken vid hopp */
+      scroll-padding-top: 75px;
     }
 
     body {
@@ -76,7 +79,7 @@
       font-family: var(--font-serif);
       font-size: 1.4rem;
       font-weight: 600;
-      color: var(--accent-green);
+      color: var(--accent-green-dark);
       text-decoration: none;
       letter-spacing: 0.05em;
     }
@@ -97,17 +100,17 @@
     }
 
     .nav-links a:hover {
-      color: var(--accent-purple);
+      color: var(--accent-purple-dark);
     }
 
-    /* Mobilmeny-knapp (dold på dator) */
+    /* Mobilmeny-knapp */
     .menu-toggle {
       display: none;
       background: none;
       border: none;
       cursor: pointer;
       padding: 0.4rem;
-      color: var(--accent-green);
+      color: var(--accent-green-dark);
       font-size: 1.5rem;
       line-height: 1;
     }
@@ -121,15 +124,15 @@
       align-items: center;
       text-align: center;
       padding: 6rem 1.5rem 4rem;
-      background: radial-gradient(circle at top right, var(--accent-purple-light) 0%, transparent 45%),
-                  radial-gradient(circle at bottom left, var(--accent-green-light) 0%, transparent 45%);
+      background: radial-gradient(circle at top right, var(--accent-purple-light) 0%, transparent 50%),
+                  radial-gradient(circle at bottom left, var(--accent-green-light) 0%, transparent 50%);
     }
 
     .subtitle {
       text-transform: uppercase;
       letter-spacing: 0.2em;
       font-size: 0.8rem;
-      color: var(--accent-purple);
+      color: var(--accent-purple-dark);
       font-weight: 500;
       margin-bottom: 1rem;
     }
@@ -197,6 +200,7 @@
       padding: 0.9rem 2.2rem;
       text-decoration: none;
       font-size: 0.85rem;
+      font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       border-radius: 3px;
@@ -206,8 +210,14 @@
     }
 
     .btn-primary:hover {
-      background-color: var(--accent-purple);
+      background-color: var(--accent-purple-dark);
       transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.65;
+      cursor: default;
+      transform: none;
     }
 
     /* Generella sektioner */
@@ -237,7 +247,7 @@
     }
 
     .section-divider {
-      width: 40px;
+      width: 48px;
       height: 2px;
       background: linear-gradient(90deg, var(--accent-green), var(--accent-purple));
       margin: 0 auto 2.5rem;
@@ -273,12 +283,13 @@
       height: 10px;
       border-radius: 50%;
       background-color: var(--accent-purple);
+      border: 2px solid var(--bg-secondary);
     }
 
     .timeline-time {
       font-size: 0.85rem;
       font-weight: 500;
-      color: var(--accent-green);
+      color: var(--accent-green-dark);
       letter-spacing: 0.05em;
     }
 
@@ -307,7 +318,7 @@
     .info-card h3 {
       font-family: var(--font-serif);
       font-size: 1.5rem;
-      color: var(--accent-green);
+      color: var(--accent-green-dark);
       margin-bottom: 0.75rem;
     }
 
@@ -384,14 +395,14 @@
 
     .wish-link {
       font-size: 0.8rem;
-      color: var(--accent-purple);
+      color: var(--accent-purple-dark);
       text-decoration: underline;
     }
 
     .btn-reserve {
       background: transparent;
       border: 1px solid var(--accent-green);
-      color: var(--accent-green);
+      color: var(--accent-green-dark);
       padding: 0.45rem 0.9rem;
       font-size: 0.8rem;
       border-radius: 3px;
@@ -448,7 +459,51 @@
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--accent-purple);
+      border-color: var(--accent-purple-dark);
+    }
+
+    /* Dynamiska gästfält */
+    .guest-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+
+    .btn-remove-guest {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 3px;
+      padding: 0.65rem 0.85rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .btn-remove-guest:hover {
+      border-color: #A63A3A;
+      color: #A63A3A;
+    }
+
+    .btn-add-guest {
+      background: var(--accent-purple-light);
+      border: 1px dashed var(--accent-purple-dark);
+      color: var(--accent-purple-dark);
+      padding: 0.55rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+      border-radius: 3px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-add-guest:hover {
+      background: #F4E2F4;
     }
 
     .status-msg {
@@ -463,7 +518,7 @@
     .status-msg.success {
       display: block;
       background: var(--accent-green-light);
-      color: var(--accent-green);
+      color: var(--accent-green-dark);
     }
 
     .status-msg.error {
@@ -653,8 +708,13 @@
 
     <form id="rsvp-form">
       <div class="form-group">
-        <label for="name">Namn på gäst(er) *</label>
-        <input type="text" id="name" name="name" placeholder="För- och efternamn" required />
+        <label>Namn på gäst(er) *</label>
+        <div id="guests-container">
+          <div class="guest-row">
+            <input type="text" name="guest[]" placeholder="Gäst 1 – För- och efternamn" required />
+          </div>
+        </div>
+        <button type="button" class="btn-add-guest" id="add-guest-btn">+ Lägg till en gäst till</button>
       </div>
 
       <div class="form-group">
@@ -672,12 +732,7 @@
 
       <div class="form-group">
         <label for="diet">Allergier eller specialkost</label>
-        <input type="text" id="diet" name="diet" placeholder="T.ex. gluten, vegetarian, nötter..." />
-      </div>
-
-      <div class="form-group">
-        <label for="song">Önskelåt till dansgolvet</label>
-        <input type="text" id="song" name="song" placeholder="Artist – Låttitel" />
+        <input type="text" id="diet" name="diet" placeholder="T.ex. gluten, vegetarian, nötter (ange gärna vem)..." />
       </div>
 
       <div class="form-group">
@@ -721,12 +776,40 @@
 
     // =========================================================
     // 1. KOPPLING TILL ERT GEMENSAMMA GOOGLE KALKYLARK
-    // Klistra in webbapp-URL:en från ert Google Apps Script här:
     // =========================================================
-    const SCRIPT_URL = "KLISTRA_IN_ER_GOOGLE_APPS_SCRIPT_URL_HÄR";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqM1uHln50wGTWLMmknPaRWacSHY_eNUOkY0to7T6dJK4P-6IfqMBcJxduGRgIibax/exec";
 
     // =========================================================
-    // 2. NEDRÄKNING TILL 22 JULI 2027 KL 15:00
+    // 2. DYNAMISKA GÄSTFÄLT I OSA
+    // =========================================================
+    const guestsContainer = document.getElementById("guests-container");
+    const addGuestBtn = document.getElementById("add-guest-btn");
+
+    function updateGuestPlaceholders() {
+      const inputs = guestsContainer.querySelectorAll('input[name="guest[]"]');
+      inputs.forEach((input, idx) => {
+        input.placeholder = `Gäst ${idx + 1} – För- och efternamn`;
+      });
+    }
+
+    addGuestBtn.addEventListener("click", () => {
+      const count = guestsContainer.querySelectorAll(".guest-row").length + 1;
+      const row = document.createElement("div");
+      row.className = "guest-row";
+      row.innerHTML = `
+        <input type="text" name="guest[]" placeholder="Gäst ${count} – För- och efternamn" required />
+        <button type="button" class="btn-remove-guest" title="Ta bort gäst" aria-label="Ta bort gäst">&times;</button>
+      `;
+      row.querySelector(".btn-remove-guest").addEventListener("click", () => {
+        row.remove();
+        updateGuestPlaceholders();
+      });
+      guestsContainer.appendChild(row);
+      row.querySelector("input").focus();
+    });
+
+    // =========================================================
+    // 3. NEDRÄKNING TILL 22 JULI 2027 KL 15:00
     // =========================================================
     const weddingDate = new Date("2027-07-22T15:00:00").getTime();
 
@@ -748,7 +831,7 @@
     updateCountdown();
 
     // =========================================================
-    // 3. ÖNSKELISTA (Exempelposter – redigera fritt)
+    // 4. ÖNSKELISTA (Exempelposter – redigera fritt)
     // =========================================================
     const defaultWishlist = [
       { id: "gift-1", title: "Bidrag till bröllopsresan", desc: "Ett valfritt bidrag till vår kommande resa.", link: "", reserved: false, unlimited: true },
@@ -791,7 +874,7 @@
           <div class="wish-actions">
             ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener" class="wish-link">Se exempel</a>` : `<span></span>`}
             ${item.unlimited 
-              ? `<span style="font-size:0.8rem; color: var(--accent-green);">Flera kan bidra</span>`
+              ? `<span style="font-size:0.8rem; color: var(--accent-green-dark);">Flera kan bidra</span>`
               : `<button class="btn-reserve" ${item.reserved ? "disabled" : ""} onclick="reserveGift('${item.id}', '${item.title}', this)">
                   ${item.reserved ? "✓ Redan vald" : "Jag tar denna"}
                  </button>`
@@ -807,12 +890,6 @@
 
       btnElement.disabled = true;
       btnElement.innerText = "Sparar...";
-
-      if (!SCRIPT_URL.startsWith("http")) {
-        btnElement.innerText = "✓ Redan vald (Demo)";
-        btnElement.closest(".wish-item").classList.add("reserved");
-        return;
-      }
 
       try {
         await fetch(SCRIPT_URL, {
@@ -833,7 +910,7 @@
     loadWishlist();
 
     // =========================================================
-    // 4. HANTERA OSA-FORMULÄRET
+    // 5. HANTERA OSA-FORMULÄRET
     // =========================================================
     document.getElementById("rsvp-form").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -844,23 +921,19 @@
       btn.innerText = "Skickar...";
       status.className = "status-msg";
 
+      const guestInputs = guestsContainer.querySelectorAll('input[name="guest[]"]');
+      const guests = Array.from(guestInputs)
+        .map(input => input.value.trim())
+        .filter(val => val !== "");
+
       const payload = {
         type: "rsvp",
-        name: document.getElementById("name").value,
+        guests: guests,
         email: document.getElementById("email").value,
         attending: document.getElementById("attending").value,
         diet: document.getElementById("diet").value,
-        song: document.getElementById("song").value,
         message: document.getElementById("message").value
       };
-
-      if (!SCRIPT_URL.startsWith("http")) {
-        status.innerText = "Demoläge: Formuläret fungerar! Koppla er Google Apps Script-URL för att spara svaren skarpt.";
-        status.classList.add("success");
-        btn.disabled = false;
-        btn.innerText = "Skicka svar";
-        return;
-      }
 
       try {
         await fetch(SCRIPT_URL, {
@@ -873,6 +946,12 @@
         status.innerText = "Tack! Ditt svar har registrerats. Vi ser fram emot att fira med er!";
         status.classList.add("success");
         this.reset();
+        // Återställ till endast 1 gästfält efter skickat svar
+        guestsContainer.innerHTML = `
+          <div class="guest-row">
+            <input type="text" name="guest[]" placeholder="Gäst 1 – För- och efternamn" required />
+          </div>
+        `;
       } catch (err) {
         status.innerText = "Det gick inte att skicka svaret just nu. Försök igen om en stund.";
         status.classList.add("error");
